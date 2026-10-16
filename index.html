@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人档案馆 · PERSONAL ARCHIVE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg">
+    <div class="bg-grid"></div>
+    <div class="bg-letters" aria-hidden="true">
+      <span class="bg-letter bl-d">D</span>
+      <span class="bg-letter bl-e">E</span>
+      <span class="bg-letter bl-v">V</span>
+      <span class="bg-letter bl-c">C</span>
+      <span class="bg-letter bl-o">O</span>
+      <span class="bg-letter bl-d2">D</span>
+      <span class="bg-letter bl-e2">E</span>
+    </div>
+    <div class="bg-code" id="bgCode"></div>
+    <div class="bg-glow bg-glow-pink"></div>
+    <div class="bg-glow bg-glow-blue"></div>
+  </div>
+
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="tb-mark">///</span>
+      <span class="tb-title">PERSONAL ARCHIVE</span>
+    </div>
+    <button class="edit-btn" id="editBtn" aria-label="编辑">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/>
+        <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    </button>
+  </header>
+
+  <main class="scene">
+    <svg class="lines-svg" viewBox="-400 -320 800 640" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <g class="connect-lines">
+        <line class="conn-line line-0" x1="0" y1="0" x2="0" y2="0" stroke="#ff2e8b" stroke-width="2" stroke-dasharray="6 5" />
+        <line class="conn-line line-1" x1="0" y1="0" x2="0" y2="0" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 5" />
+        <line class="conn-line line-2" x1="0" y1="0" x2="0" y2="0" stroke="#f5b800" stroke-width="2" stroke-dasharray="6 5" />
+        <line class="conn-line line-3" x1="0" y1="0" x2="0" y2="0" stroke="#9333ea" stroke-width="2" stroke-dasharray="6 5" />
+        <line class="conn-line line-4" x1="0" y1="0" x2="0" y2="0" stroke="#10b981" stroke-width="2" stroke-dasharray="6 5" />
+      </g>
+      <g class="conn-dots">
+        <circle class="conn-dot dot-0" cx="0" cy="0" r="6" fill="#ff2e8b" />
+        <circle class="conn-dot dot-1" cx="0" cy="0" r="6" fill="#2563eb" />
+        <circle class="conn-dot dot-2" cx="0" cy="0" r="6" fill="#f5b800" />
+        <circle class="conn-dot dot-3" cx="0" cy="0" r="6" fill="#9333ea" />
+        <circle class="conn-dot dot-4" cx="0" cy="0" r="6" fill="#10b981" />
+      </g>
+    </svg>
+
+    <div class="center-char">
+      <div class="char-wrap">
+        <img src="character.png" alt="个人形象" class="char-img" draggable="false" />
+      </div>
+    </div>
+
+    <div class="card card-personal" data-card="personal" style="--card-color:#ff2e8b">
+      <div class="card-inner">
+        <div class="card-topline"></div>
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <span class="card-num">01</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">个人信息</h3>
+          <p class="card-subtitle">PERSONAL INFO</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="card card-edu" data-card="edu" style="--card-color:#2563eb">
+      <div class="card-inner">
+        <div class="card-topline"></div>
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+          </div>
+          <span class="card-num">02</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">教育背景</h3>
+          <p class="card-subtitle">EDUCATION</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="card card-intern" data-card="intern" style="--card-color:#f5b800">
+      <div class="card-inner">
+        <div class="card-topline"></div>
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-4V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z"/></svg>
+          </div>
+          <span class="card-num">03</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">实习经历</h3>
+          <p class="card-subtitle">INTERNSHIP</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="card card-project" data-card="project" style="--card-color:#9333ea">
+      <div class="card-inner">
+        <div class="card-topline"></div>
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+          </div>
+          <span class="card-num">04</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">项目经历</h3>
+          <p class="card-subtitle">PROJECTS</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="card card-skill" data-card="skill" style="--card-color:#10b981">
+      <div class="card-inner">
+        <div class="card-topline"></div>
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+          </div>
+          <span class="card-num">05</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">技能与荣誉</h3>
+          <p class="card-subtitle">SKILLS & HONORS</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="ft-mark">///</span>
+      <span class="ft-name">个人档案馆</span>
+      <span class="ft-copy">© 2026</span>
+    </div>
+    <div class="footer-center">
+      <span class="fc-label">EMAIL</span>
+      <a href="mailto:liuxxx@126.com" class="fc-email">liuxxx@126.com</a>
+    </div>
+    <div class="footer-right">求职中</div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-topline"></div>
+      <button class="modal-close" id="modalClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">个人信息</h2>
+        <p class="modal-subtitle" id="modalSub">PERSONAL INFORMATION</p>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modalCancel">取消</button>
+        <button class="btn btn-primary" id="modalSave">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
