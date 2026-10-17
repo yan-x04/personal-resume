@@ -6,14 +6,14 @@
   // ========== Data ==========
   var defaultData = {
     personal: {
-      name: '',
+      name: '董妍妍',
       gender: '女',
       age: '22',
       political: '共青团员',
       email: '3381734725@qq.cm',
-      phone: '198xxx',
+      phone: '198-5677-2039',
       education: '本科',
-      location: '',
+      location: '芜湖市鸠江区安徽师范大学天门山校区',
       birthdate: '',
       hometown: '',
       nationality: '',
@@ -115,8 +115,8 @@
   // ========== Card Layout ==========
   // Card order: personal (top), edu (upper-left), intern (upper-right),
   //              project (lower-left), skill (lower-right)
-  var cardAngles = [92, 160, 20, 208, 332]; // degrees, 0 = right
-  var cardRadii = [0.72, 1.28, 1.26, 1.30, 1.22];
+  var cardAngles = [90, 165, 15, 205, 335]; // degrees, 0 = right
+  var cardRadii = [0.68, 1.40, 1.40, 1.35, 1.35];
   var cardTilts = [-1, -12, 12, -10, 10];
   var cardColors = ['#ff2e8b', '#2563eb', '#f5b800', '#9333ea', '#10b981'];
 
@@ -130,10 +130,10 @@
 
     // Center point
     var centerX = sceneW / 2;
-    var centerY = sceneH * 0.52;
+    var centerY = sceneH * 0.50;
 
     // Base radius
-    var baseRadius = Math.min(sceneW * 0.36, sceneH * 0.42, 430);
+    var baseRadius = Math.min(sceneW * 0.38, sceneH * 0.42, 450);
 
     cards.forEach(function (card, i) {
       var rad = cardAngles[i] * Math.PI / 180;
@@ -300,8 +300,8 @@
   // ========== Modal ==========
   var modalOverlay = document.getElementById('modalOverlay');
   var modalClose = document.getElementById('modalClose');
-  var modalCancel = document.getElementById('modalCancel');
-  var modalSave = document.getElementById('modalSave');
+  
+  
   var modalTitle = document.getElementById('modalTitle');
   var modalSub = document.getElementById('modalSubtitle') || document.getElementById('modalSub');
   var modalBody = document.getElementById('modalBody');
@@ -321,7 +321,7 @@
     var config = cardConfig[type];
     modalTitle.textContent = config.title;
     if (modalSub) modalSub.textContent = config.sub;
-    modalBody.innerHTML = renderForm(type);
+    modalBody.innerHTML = renderDetail(type);
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 
@@ -343,112 +343,123 @@
     return d.innerHTML;
   }
 
-  // ========== Render Forms ==========
-  function renderForm(type) {
+  // ========== Render Detail (纯展示) ==========
+  function renderDetail(type) {
     if (type === 'personal') {
-      return '<div class="form-grid">' +
-        formField('姓名', 'name', data.personal.name) +
-        formField('性别', 'gender', data.personal.gender) +
-        formField('年龄', 'age', data.personal.age) +
-        formField('政治面貌', 'political', data.personal.political) +
-        formField('联系电话', 'phone', data.personal.phone) +
-        formField('电子邮箱', 'email', data.personal.email) +
-        formField('学历', 'education', data.personal.education) +
-        formField('现居地', 'location', data.personal.location) +
-        '</div>';
+      var items = [
+        { label: '姓名', value: data.personal.name || '待填写' },
+        { label: '性别', value: data.personal.gender || '待填写' },
+        { label: '年龄', value: data.personal.age || '待填写' },
+        { label: '政治面貌', value: data.personal.political || '待填写' },
+        { label: '联系电话', value: data.personal.phone || '待填写' },
+        { label: '电子邮箱', value: data.personal.email || '待填写' },
+        { label: '学历', value: data.personal.education || '待填写' },
+        { label: '现居地', value: data.personal.location || '待填写' }
+      ];
+      var html = '<div class="detail-grid">';
+      items.forEach(function (item) {
+        html += '<div class="detail-item">' +
+          '<div class="detail-label">' + item.label + '</div>' +
+          '<div class="detail-value">' + esc(item.value) + '</div>' +
+          '</div>';
+      });
+      html += '</div>';
+      return html;
     }
 
     if (type === 'edu') {
-      var html = '<div class="form-list" id="formList">';
-      data.edu.forEach(function (ed, i) {
-        html += formCardBlock([
-          { label: '学校名称', field: 'school', value: ed.school },
-          { label: '起止时间', field: 'time', value: ed.time },
-          { label: '学历', field: 'degree', value: ed.degree },
-          { label: '专业', field: 'major', value: ed.major },
-          { label: '排名 / 平均分', field: 'rank', value: ed.rank, full: true },
-          { label: '主修课程', field: 'courses', value: ed.courses, full: true, textarea: true, rows: 2 },
-          { label: '荣誉奖项', field: 'honors', value: ed.honors, full: true, textarea: true, rows: 2 },
-          { label: '资格证书', field: 'certs', value: ed.certs, full: true, textarea: true, rows: 2 }
-        ], i, 'edu');
+      var html = '';
+      data.edu.forEach(function (ed) {
+        html += '<div class="detail-entry">' +
+          '<div class="entry-head">' +
+            '<div class="entry-title">' + esc(ed.school || '待填写') + ' · ' + esc(ed.major || '待填写') + '</div>' +
+            '<div class="entry-time">' + esc(ed.time || '') + '</div>' +
+          '</div>';
+        if (ed.rank) html += '<div class="entry-meta"><b>排名 / 平均分：</b>' + esc(ed.rank) + '</div>';
+        if (ed.courses) html += '<div class="entry-meta"><b>主修课程：</b>' + esc(ed.courses) + '</div>';
+        if (ed.honors) html += '<div class="entry-meta"><b>荣誉奖项：</b>' + esc(ed.honors) + '</div>';
+        if (ed.certs) html += '<div class="entry-meta"><b>资格证书：</b>' + esc(ed.certs) + '</div>';
+        html += '</div>';
       });
-      html += '</div><button class="add-btn" data-type="edu">+ 添加一条教育经历</button>';
       return html;
     }
 
     if (type === 'intern') {
-      var html = '<div class="form-list" id="formList">';
-      data.intern.forEach(function (it, i) {
-        var descStr = Array.isArray(it.desc) ? it.desc.join('\n') : (it.desc || '');
-        html += formCardBlock([
-          { label: '公司名称', field: 'company', value: it.company },
-          { label: '职位', field: 'position', value: it.position },
-          { label: '起止时间', field: 'time', value: it.time },
-          { label: '工作描述（每行一条）', field: 'desc', value: descStr, full: true, textarea: true, rows: 4 }
-        ], i, 'intern');
+      var html = '';
+      data.intern.forEach(function (it) {
+        html += '<div class="detail-entry">' +
+          '<div class="entry-head">' +
+            '<div class="entry-title">' + esc(it.company || '待填写') + ' · ' + esc(it.position || '待填写') + '</div>' +
+            '<div class="entry-time">' + esc(it.time || '') + '</div>' +
+          '</div>' +
+          '<ul class="entry-list">';
+        var descList = Array.isArray(it.desc) ? it.desc : [it.desc];
+        descList.forEach(function (d) {
+          if (d && d.trim()) html += '<li>' + esc(d) + '</li>';
+        });
+        html += '</ul></div>';
       });
-      html += '</div><button class="add-btn" data-type="intern">+ 添加一段实习经历</button>';
       return html;
     }
 
     if (type === 'project') {
-      var html = '<div class="form-list" id="formList">';
-      data.project.forEach(function (p, i) {
-        html += formCardBlock([
-          { label: '项目名称', field: 'name', value: p.name },
-          { label: '开始时间', field: 'start', value: p.start },
-          { label: '结束时间', field: 'end', value: p.end },
-          { label: '项目描述', field: 'desc', value: p.desc, full: true, textarea: true, rows: 5 }
-        ], i, 'project');
+      var html = '';
+      data.project.forEach(function (p) {
+        var timeStr = (p.start || '') + (p.end ? ' - ' + p.end : '');
+        html += '<div class="detail-entry">' +
+          '<div class="entry-head">' +
+            '<div class="entry-title">' + esc(p.name || '待填写') + '</div>' +
+            '<div class="entry-time">' + esc(timeStr) + '</div>' +
+          '</div>' +
+          '<div class="entry-desc">' + esc(p.desc || '').replace(/\n/g, '<br>') + '</div>' +
+          '</div>';
       });
-      html += '</div><button class="add-btn" data-type="project">+ 添加一个项目</button>';
       return html;
     }
 
     if (type === 'skill') {
-      var skillHtml =
-        '<div class="form-group"><label class="form-label">测试基础</label>' +
-        '<textarea class="form-textarea" data-skill="testBasic" rows="2">' + esc(data.skills.testBasic || '') + '</textarea></div>' +
-        '<div class="form-group"><label class="form-label">测试工具</label>' +
-        '<textarea class="form-textarea" data-skill="testTools" rows="2">' + esc(data.skills.testTools || '') + '</textarea></div>' +
-        '<div class="form-group"><label class="form-label">编程与数据库</label>' +
-        '<textarea class="form-textarea" data-skill="coding" rows="2">' + esc(data.skills.coding || '') + '</textarea></div>' +
-        '<div class="form-group"><label class="form-label">系统与工具</label>' +
-        '<textarea class="form-textarea" data-skill="systems" rows="2">' + esc(data.skills.systems || '') + '</textarea></div>' +
-        '<div class="form-group"><label class="form-label">AI工具</label>' +
-        '<textarea class="form-textarea" data-skill="aiTools" rows="2">' + esc(data.skills.aiTools || '') + '</textarea></div>';
+      var html = '';
 
-      var honorsHtml = '<div class="form-group"><label class="form-label">荣誉奖项</label>';
-      data.honors.forEach(function (h, i) {
-        honorsHtml += '<div class="honor-row" data-index="' + i + '">' +
-          '<input type="text" class="form-input honor-name-input" placeholder="奖项名称" value="' + esc(h.name) + '" />' +
-          '<input type="text" class="form-input honor-time-input" placeholder="获奖时间" value="' + esc(h.time) + '" />' +
-          '<button class="remove-honor" data-index="' + i + '">删除</button>' +
-          '</div>';
-      });
-      honorsHtml += '<button class="add-honor-btn">+ 添加一个奖项</button></div>';
-
-      var certsHtml = '<div class="form-group" style="margin-top:14px;"><label class="form-label">资格证书</label>';
-      if (data.certs && data.certs.length) {
-        data.certs.forEach(function (c, i) {
-          certsHtml += '<div class="honor-row" data-cert="' + i + '">' +
-            '<input type="text" class="form-input cert-name-input" placeholder="证书名称" value="' + esc(c.name) + '" />' +
-            '<input type="text" class="form-input cert-time-input" placeholder="获得时间" value="' + esc(c.time) + '" />' +
-            '<button class="remove-cert" data-cert="' + i + '">删除</button>' +
+      // 专业技能
+      html += '<div class="detail-section"><div class="section-title-bar"><span class="stb-num">01</span><span class="stb-text">专业技能</span></div>';
+      html += '<div class="skill-groups">';
+      var skillLabels = {
+        testBasic: '测试基础',
+        testTools: '测试工具',
+        coding: '编程与数据库',
+        systems: '系统与工具',
+        aiTools: 'AI工具'
+      };
+      ['testBasic', 'testTools', 'coding', 'systems', 'aiTools'].forEach(function (key) {
+        var val = data.skills[key];
+        if (val) {
+          html += '<div class="skill-group">' +
+            '<div class="skill-name">' + skillLabels[key] + '</div>' +
+            '<div class="skill-desc">' + esc(val) + '</div>' +
             '</div>';
+        }
+      });
+      html += '</div></div>';
+
+      // 荣誉奖项
+      if (data.honors && data.honors.length) {
+        html += '<div class="detail-section"><div class="section-title-bar"><span class="stb-num">02</span><span class="stb-text">荣誉奖项</span></div>';
+        html += '<ul class="honor-list">';
+        data.honors.forEach(function (h) {
+          if (h.name) {
+            html += '<li>' +
+              '<span class="honor-dot"></span>' +
+              '<span class="honor-name">' + esc(h.name) + '</span>' +
+              (h.time ? '<span class="honor-time">' + esc(h.time) + '</span>' : '') +
+              '</li>';
+          }
         });
+        html += '</ul></div>';
       }
-      certsHtml += '<button class="add-honor-btn add-cert-btn">+ 添加一个证书</button></div>';
 
-      var evalHtml = '<div class="form-group" style="margin-top:14px;">' +
-        '<label class="form-label">自我评价</label>' +
-        '<textarea class="form-textarea" data-field="selfEval" rows="4">' + esc(data.selfEval || '') + '</textarea></div>';
 
-      return '<div class="two-col">' +
-        '<div><div class="col-title">专业技能</div>' + skillHtml + '</div>' +
-        '<div><div class="col-title">荣誉 & 证书</div>' + honorsHtml + certsHtml + '</div>' +
-        '</div>' +
-        '<div style="margin-top:20px;"><div class="col-title">自我评价</div>' + evalHtml + '</div>';
+
+      return html;
     }
 
     return '';
@@ -680,7 +691,7 @@
     document.querySelectorAll('.card[data-card]').forEach(function (card) {
       card.addEventListener('click', function () {
         openModal(card.dataset.card);
-        bindFormEvents(card.dataset.card);
+        
       });
     });
 
@@ -689,13 +700,14 @@
     if (editBtn) {
       editBtn.addEventListener('click', function () {
         openModal('personal');
-        bindFormEvents('personal');
+        
       });
     }
 
     // Close modal
     modalClose.addEventListener('click', closeModal);
-    modalCancel.addEventListener('click', closeModal);
+    var modalCloseBtn = document.getElementById('modalCloseBtn');
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', function (e) {
       if (e.target === modalOverlay) closeModal();
     });
@@ -704,7 +716,7 @@
     });
 
     // Save
-    modalSave.addEventListener('click', saveCurrent);
+    
 
     // Resize
     var resizeTimer;
@@ -722,6 +734,13 @@
     init();
   }
 })();
+
+
+
+
+
+
+
 
 
 
